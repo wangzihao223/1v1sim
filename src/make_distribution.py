@@ -21,7 +21,7 @@ def make_binomial(n, p, size):
     return np.random.binomial(n, p, size=size)
 
 
-def make_uniform(size, start, width):
+def make_uniform(start, width, size):
     """
         生成均匀分布
         Parameters:
