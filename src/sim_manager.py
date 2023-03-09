@@ -6,10 +6,19 @@ sim manager module
 import heapq
 
 
-import greenlet
+from greenlet import greenlet
 
 
-def manager_loop(queue:list, now:int, max_step:int):
+def start_manager(queue:list, max_step:int, start_time=0) -> greenlet:
+    """
+    start a manager process
+    """
+    args = [queue, start_time, max_step]
+    process = greenlet(manager_loop, *args)
+    return process
+
+
+def manager_loop(queue:list, now:int, max_step:int) -> None:
     """
     manager main loop
     """
@@ -18,7 +27,6 @@ def manager_loop(queue:list, now:int, max_step:int):
         handle_event(queue, now)
     
     return None
-
 
 
 def handle_event(queue:list, now:int) -> None:
