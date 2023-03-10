@@ -21,8 +21,9 @@ def commit_event(queue:list, step:int, manager:greenlet, self:greenlet, \
     """
         向manager提交事件
     """
-    id = time.time()
+    id = time.time_ns()
     element = (step, id, self, callback)
+    print(element)
     heapq.heappush(queue, element)
     # switch manager
     callback = manager.switch()
