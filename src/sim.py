@@ -26,7 +26,7 @@ def process1(manager, queue, a, b):
     init("id: 1", manager)
     print("INFO: init 1 ok")
     # main_loop
-    callback_tup = sim_process.commit_event(queue, 1, manager, self, (mult, [a,b]))
+    callback_tup = sim_process.commit_event(queue, 15, manager, self, (mult, [a,b]))
     args = callback_tup[1]
     callback_tup[0](*args)
     print("process1 end")
@@ -35,7 +35,7 @@ def process1(manager, queue, a, b):
 def process2(manager, queue, a, b):
     def init(id, manager):
         print("init: ", id)
-        callback_tup = sim_process.commit_event(queue, 1, manager, self, (add, [a,b]))
+        callback_tup = sim_process.commit_event(queue, 2, manager, self, (add, [a,b]))
         args = callback_tup[1]
         callback_tup[0](*args)
     self = sim_process.current_process()
