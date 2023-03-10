@@ -1,9 +1,12 @@
+from numpy import radians, sin, cos, arcsin, sqrt
+from numba import njit
 """
 多目标同时临空方式一
 """
 #设某作战平台Ai，与攻击目标距离为Ri，导弹速度为Vi。
 #若为变速导弹：弹道变速点与目标距离为RI，速度为VI，临空时间为T，导弹发射反应时间为Δt。
 #ti:发射时刻
+
 
 
 #常规导弹
@@ -94,3 +97,40 @@ def near_intercept(Rj, Pm, Hm, V, Vm, Δt):
 #      print("可拦截")
 #     else:
 #         print("不可拦截")
+
+
+@njit(cache=True)
+def aabb(d_lon,d_lat,k):
+    aa = sin(d_lat / 2) ** 2 + k * sin(d_lon / 2) ** 2
+    bb=sqrt(aa)
+    c = 2 * arcsin(bb)
+    return c
+
+@njit
+def disN12(lon1, lat1, lon2, lat2):
+    # 将十进制转为弧度
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    # haversine公式
+    d_lon = lon2 - lon1
+    d_lat = lat2 - lat1
+    k=cos(lat1) * cos(lat2)
+    c=aabb(d_lon,d_lat,k)  
+    r = 6371  # 地球半径，千米
+    return c * r * 1000
+
+
+# 经纬度转换成十进制数公式
+def longitude_and_latitude(addr):
+    return addr[0] + float(addr[1]/60) + float(addr[2]/3600)
+
+
+# # (121, 32, 8)  (25, 4, 11)
+# # (119, 0, 27) (25, 26, 54)
+#
+# lon1 = longitude_and_latitude((121, 32, 8))
+# lon2 = longitude_and_latitude((119, 0, 27))
+# lat1 = longitude_and_latitude((25, 4, 11))
+# lat2 = longitude_and_latitude((25, 26, 54))
+#
+# l = disN12(lon1, lat1, lon2, lat2)
+# print(l)

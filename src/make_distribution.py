@@ -17,6 +17,7 @@ def make_gaussian(miu, sigma, size):
 def make_binomial(n, p, size):
     """
         生成二项分布
+        p：[0, 1]
     """
     return np.random.binomial(n, p, size=size)
 
