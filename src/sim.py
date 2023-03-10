@@ -1,10 +1,9 @@
 """
 test sim frame
 """
-import green_sim
+
 import sim_process
 import sim_manager
-import greenlet
 from sim_process import green_process
 
 def add(a, b):
@@ -19,7 +18,9 @@ def mult(a, b):
 def process1(manager, queue, a, b):
     def init(id, manager):
         print("init: ", id)
-        callback_tup = sim_process.commit_event(queue, 1, manager, self, (add, [a,b]))
+        n = now[0]
+        callback_tup = sim_process.commit_event(queue, n + 15, manager, self, (add, [a,b]))
+        now[0] = n + 15
         args = callback_tup[1]
         callback_tup[0](*args)
     self = sim_process.current_process()
@@ -46,7 +47,7 @@ def process2(manager, queue, a, b):
 
 def main():
     queue = []
-
+    now = [0]
     l1 = sim_process.make_process(process1)
     l2 = sim_process.make_process(process2)    
     
