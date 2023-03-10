@@ -226,7 +226,7 @@ def identification_and_distribution(target):
 
 #blue Fire Strike 4
 #目标指示（1）
-#（1）正确率（2）指示距离（3）只是精度（4）反应时间
+#（1）正确率（2）指示距离（3）指示精度（4）反应时间
 
 #编队导弹反导（2）
 def interception_distance(target):
