@@ -6,7 +6,7 @@ P~(二项分布)
 X~(均匀分布)
 """
 
-
+import scipy
 from make_distribution import *
 
 # red Task release 1
@@ -17,6 +17,8 @@ def troop_assembly(target):
         target: list ["gaussian",[miu, sigma]]
     """
     return distribute_selector(target)
+y = troop_assembly(["uniform",[2, 3, 1]])
+print(y)
 
 def networking_building(target):
     """
@@ -269,7 +271,6 @@ def re_reaction_time(target):
         target: list ["gaussian",[miu, sigma]]
     """
     return distribute_selector(target)
-
 
 
 def distribute_selector(target):
